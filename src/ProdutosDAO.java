@@ -39,7 +39,7 @@ this.conectaDAO = new conectaDAO();
         JOptionPane.showMessageDialog(null,"Produto inserido com sucesso!!");
         
     }catch(Exception e){
-        System.out.println("Erro ao inserir cliente : "+e.getMessage());
+        System.out.println("Erro ao inserir produto : "+e.getMessage());
     }
     this.conectaDAO.desconectar(this.conn);
 }
