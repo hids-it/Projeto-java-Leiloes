@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `produtos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produtos` (
-  `id` bigint unsigned NOT NULL,
-  `nome` text,
-  `valor` int DEFAULT NULL,
-  `status` text
+  `id` int NOT NULL,
+  `nome` text NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `status` text,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,7 +37,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (2,'PS4',1500,'Vendido'),(3,'Xbox 360',800,'Vendido'),(4,'Iphone 12',4800,'Vendido'),(5,'PS2',400,'A Venda');
+INSERT INTO `produtos` VALUES (2,'PS4',1500.00,'Vendido'),(3,'Xbox 360',800.00,'Vendido'),(4,'Iphone 12',4800.00,'Vendido'),(5,'PS2',400.00,'A Venda');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-20  3:12:42
+-- Dump completed on 2025-01-29 23:47:03
