@@ -18,16 +18,30 @@ import javax.swing.JOptionPane;
 public class conectaDAO {
     
     public Connection connectDB(){
-        Connection conn = null;
+       
         
         try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11","root", "");
+            return conn;
             
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
+            return null;
         }
-        return conn;
+       
     }
     
+     public void desconectar (Connection conn){ //criando metodo para desconectar o BD
+        
+        try{
+            if (conn !=null &&!conn.isClosed()){
+                conn.close();
+                System.out.println ("BD desconectado");
+            }
+        }catch (SQLException ex){
+            System.out.println("Não foi possível desconectar o BD");
+        }
+        
+        
+    }
 }
