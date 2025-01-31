@@ -25,7 +25,7 @@ this.conectaDAO = new conectaDAO();
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
-    public void cadastrarProduto (ProdutosDTO produto){ //metodo para cadastrar clientes 
+    public void cadastrarProduto (ProdutosDTO produto){ //metodo para cadastrar produtos  
         
       this.conn = this.conectaDAO.connectDB();
     String sql ="INSERT INTO produtos (nome,valor,status) VALUES"+"(?,?,?)";
@@ -103,8 +103,51 @@ this.conectaDAO = new conectaDAO();
         return listagem;
     }
     
+    public void venderProduto (Integer id){ //metodo para cadastrar vendas com base no id informado
+        
+      this.conn = this.conectaDAO.connectDB();
+    String sql ="UPDATE produtos  SET status = 'Vendido' WHERE id = ?";
+    try{
+        PreparedStatement stmt = this.conn.prepareStatement(sql);
+        stmt.setInt(1, id);   
+        stmt.execute();
+        
+        JOptionPane.showMessageDialog(null,"Produto vendido com sucesso!!");
+        
+    }catch(Exception e){
+        System.out.println("Erro ao vender o produto : "+e.getMessage());
+    }
+    this.conectaDAO.desconectar(this.conn);
+}
     
-    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        
+       this.conn = this.conectaDAO.connectDB();
+        listagem.clear();
+        String sql = "SELECT * FROM produtos WHERE status ='Vendido'";
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getDouble("valor"));
+                produto.setStatus(rs.getString("status"));
+               
+                listagem.add(produto);  
+            }
+                    }catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+            return null;
+        }
+        finally{
+            this.conectaDAO.desconectar(this.conn);
+        }      
+        return listagem;
+    }
         
 }
 
