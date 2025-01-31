@@ -120,6 +120,34 @@ this.conectaDAO = new conectaDAO();
     this.conectaDAO.desconectar(this.conn);
 }
     
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        
+       this.conn = this.conectaDAO.connectDB();
+        listagem.clear();
+        String sql = "SELECT * FROM produtos WHERE status ='Vendido'";
+        try{
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getDouble("valor"));
+                produto.setStatus(rs.getString("status"));
+               
+                listagem.add(produto);  
+            }
+                    }catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+            return null;
+        }
+        finally{
+            this.conectaDAO.desconectar(this.conn);
+        }      
+        return listagem;
+    }
         
 }
 
